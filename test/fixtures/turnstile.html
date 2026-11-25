@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Fixture: Cloudflare Turnstile</title>
+</head>
+<body>
+  <h1>Checking your browser</h1>
+  <p id="challenge-text">security check</p>
+  <div class="cf-turnstile" id="cf-turnstile" data-sitekey="1x00000000000000000000AA"></div>
+  <script>
+    const container = document.getElementById("cf-turnstile");
+    const iframe = document.createElement("iframe");
+    iframe.src = "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/turnstile/if/ov2/av0/rcv0/0/fake";
+    iframe.width = "300";
+    iframe.height = "65";
+    container.appendChild(iframe);
+    const ta = document.createElement("input");
+    ta.id = "cf-turnstile-response";
+    ta.type = "hidden";
+    document.body.appendChild(ta);
+    iframe.addEventListener("load", () => {
+      // Auto-clears on load to simulate low-risk turnstile.
+      document.getElementById("cf-turnstile-response").value = "fixture-turnstile-token";
+      document.getElementById("challenge-text").textContent = "passed";
+    });
+  </script>
+</body>
+</html>

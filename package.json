@@ -1,0 +1,39 @@
+{
+  "name": "captcha-handoff",
+  "version": "0.1.0",
+  "description": "MCP server that detects CAPTCHA blocks, hands them to a human asynchronously, can attempt to solve them itself, and persists verified sessions.",
+  "bin": {
+    "captcha-handoff": "dist/index.js"
+  },
+  "type": "module",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.6.1",
+    "keytar": "^7.9.0",
+    "node-notifier": "^10.0.1",
+    "playwright-core": "^1.48.0",
+    "tldts": "^6.1.46",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/node-notifier": "^8.0.5",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.0",
+    "vitest": "^2.1.0"
+  }
+}

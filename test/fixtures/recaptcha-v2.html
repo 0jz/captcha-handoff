@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Fixture: reCAPTCHA v2</title>
+</head>
+<body>
+  <h1>Sign in</h1>
+  <p id="challenge-text">verify you are human</p>
+  <form id="login" action="/submit" method="post">
+    <input type="text" name="user" placeholder="username" />
+    <input type="password" name="password" placeholder="password" />
+    <div class="g-recaptcha" id="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
+    <button type="submit">Sign in</button>
+  </form>
+  <script>
+    // Fake the widget iframe that real reCAPTCHA v2 renders.
+    const container = document.getElementById("g-recaptcha");
+    const iframe = document.createElement("iframe");
+    iframe.id = "recaptcha-anchor";
+    iframe.src = "https://www.google.com/recaptcha/api2/anchor?k=fake";
+    iframe.title = "reCAPTCHA";
+    iframe.width = "304";
+    iframe.height = "78";
+    container.appendChild(iframe);
+    const ta = document.createElement("textarea");
+    ta.id = "g-recaptcha-response";
+    ta.style.display = "none";
+    document.body.appendChild(ta);
+
+    // The "human" (or the solver) clicks the checkbox to clear it.
+    const box = document.createElement("span");
+    box.id = "recaptcha-checkbox";
+    box.setAttribute("role", "checkbox");
+    box.setAttribute("aria-label", "I'm not a robot");
+    box.className = "recaptcha-checkbox";
+    box.style.cssText = "display:inline-block;width:28px;height:28px;background:#fff;border:2px solid #999;border-radius:3px;margin:24px;cursor:pointer;";
+    document.body.appendChild(box);
+
+    box.addEventListener("click", () => {
+      box.setAttribute("aria-checked", "true");
+      box.className = "recaptcha-checkbox recaptcha-checkbox-checked";
+      document.getElementById("g-recaptcha-response").value = "fixture-token-ok";
+      document.getElementById("challenge-text").textContent = "challenge passed";
+    });
+  </script>
+</body>
+</html>
